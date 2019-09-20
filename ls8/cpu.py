@@ -108,6 +108,18 @@ class CPU:
                 self.running = False
                 sys.exit(0)  # 0 exit = success
 
+            elif op_code == 0b01101001: # NOT
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('NOT', address_a, address_b)
+                self.increment_pc(op_code) 
+
+            elif op_code == 0b10000010:  # LDI
+                address = self.ram_read(self.pc + 1)
+                data = self.ram_read(self.pc + 2)
+                self.registers[address] = data
+                self.increment_pc(op_code)
+
             elif op_code == 0b10100000:  # ADD
                 address_a = self.ram_read(self.pc + 1)
                 address_b = self.ram_read(self.pc + 2)
@@ -120,17 +132,17 @@ class CPU:
                 self.alu('SUB', address_a, address_b)
                 self.increment_pc(op_code)
 
-            elif op_code == 0b10000010:  # LDI
-                address = self.ram_read(self.pc + 1)
-                data = self.ram_read(self.pc + 2)
-                self.registers[address] = data
-                self.increment_pc(op_code)
-
             elif op_code == 0b10100010:  # MUL
                 address_a = self.ram_read(self.pc + 1)
                 address_b = self.ram_read(self.pc + 2)
                 self.alu('MUL', address_a, address_b)
                 self.increment_pc(op_code)
+
+            elif op_code == 0b10100100: # MOD
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('MOD', address_a, address_b)
+                self.increment_pc(op_code) 
 
             elif op_code == 0b01000101:  # PUSH
                 register_address = self.ram_read(self.pc + 1)
@@ -184,6 +196,35 @@ class CPU:
                 address_b = self.ram_read(self.pc + 2)
                 self.alu('CMP', address_a, address_b)
                 self.increment_pc(op_code)
+
+            
+            elif op_code == 0b10101010: #  OR
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('OR', address_a, address_b)
+                self.increment_pc(op_code)
+
+            elif op_code == 0b10101011: # XOR
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('XOR', address_a, address_b)
+                self.increment_pc(op_code) 
+
+            elif op_code == 0b10101100: # SHL
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('SHL', address_a, address_b)
+                self.increment_pc(op_code) 
+                
+            elif op_code == 0b10101101: # SHR
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('SHR', address_a, address_b)
+                self.increment_pc(op_code) 
+
+
+
+# ADDI ???
 
             else:
                 print(bin(op_code))
