@@ -63,7 +63,8 @@ class CPU:
         """ALU operations."""
         if op == "ADD":
             self.registers[reg_a] += self.registers[reg_b]
-        # elif op == "SUB": etc
+        elif op == "SUB":
+            self.registers[reg_a] -= self.registers[reg_b]
         elif op == "MUL":
             self.registers[reg_a] = self.registers[reg_a] * \
                 self.registers[reg_b]
@@ -111,6 +112,12 @@ class CPU:
                 address_a = self.ram_read(self.pc + 1)
                 address_b = self.ram_read(self.pc + 2)
                 self.alu('ADD', address_a, address_b)
+                self.increment_pc(op_code)
+
+            elif op_code == 0b10100001:  # SUB
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('SUB', address_a, address_b)
                 self.increment_pc(op_code)
 
             elif op_code == 0b10000010:  # LDI

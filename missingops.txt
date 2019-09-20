@@ -1,0 +1,29 @@
+[tom@thinclient ls8]$ ./ls8.py examples/call.ls8 
+- Working
+
+[tom@thinclient ls8]$ ./ls8.py examples/interrupts.ls8 
+0b10000100
+I don't know an operation in this file
+
+[tom@thinclient ls8]$ ./ls8.py examples/keyboard.ls8 
+0b10000100
+I don't know an operation in this file
+
+[tom@thinclient ls8]$ ./ls8.py examples/mult.ls8 
+- Working
+
+[tom@thinclient ls8]$ ./ls8.py examples/print8.ls8 
+- Working
+
+[tom@thinclient ls8]$ ./ls8.py examples/printstr.ls8 
+0b10000011
+I don't know an operation in this file
+
+[tom@thinclient ls8]$ ./ls8.py examples/sctest.ls8 
+- Working
+
+[tom@thinclient ls8]$ ./ls8.py examples/stack.ls8 
+- Working
+
+[tom@thinclient ls8]$ ./ls8.py examples/stackoverflow.ls8 
+- Working
