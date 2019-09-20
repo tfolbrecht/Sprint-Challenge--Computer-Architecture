@@ -75,6 +75,7 @@ class CPU:
                 self.flag = 0b00000010
             else:
                 self.flag = 0b00000100
+#        elif op ==
         else:
             raise Exception("Unsupported ALU operation")
 
@@ -94,7 +95,7 @@ class CPU:
         ), end='')
 
         for i in range(8):
-            print(" %02X" % self.reg[i], end='')
+            print(" %02X" % self.registers[i], end='')
 
         print()
 
@@ -173,6 +174,8 @@ class CPU:
                 self.pc = self.ram[self.registers[self.sp]]
                 self.registers[self.sp] += 1
 
+            elif op_code == 0b10000011: # LD
+
             elif op_code == 0b01010100:  # JMP
                 register_address = self.ram_read(self.pc + 1)
                 self.pc = self.registers[register_address]
@@ -215,7 +218,7 @@ class CPU:
                 address_b = self.ram_read(self.pc + 2)
                 self.alu('SHL', address_a, address_b)
                 self.increment_pc(op_code) 
-                
+
             elif op_code == 0b10101101: # SHR
                 address_a = self.ram_read(self.pc + 1)
                 address_b = self.ram_read(self.pc + 2)
