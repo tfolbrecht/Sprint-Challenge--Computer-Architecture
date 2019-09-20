@@ -119,11 +119,6 @@ class CPU:
                 self.registers[address] = data
                 self.increment_pc(op_code)
 
-            elif op_code == 0b01000111:  # PRN
-                address_a = self.ram_read(self.pc + 1)
-                print(self.registers[address_a])
-                self.increment_pc(op_code)
-
             elif op_code == 0b10100010:  # MUL
                 address_a = self.ram_read(self.pc + 1)
                 address_b = self.ram_read(self.pc + 2)
@@ -142,6 +137,11 @@ class CPU:
                 val = self.ram[self.registers[self.sp]]
                 self.registers[register_address] = val
                 self.registers[self.sp] += 1
+                self.increment_pc(op_code)
+
+            elif op_code == 0b01000111:  # PRN
+                address_a = self.ram_read(self.pc + 1)
+                print(self.registers[address_a])
                 self.increment_pc(op_code)
 
             elif op_code == 0b01010000:  # CALL
@@ -165,18 +165,18 @@ class CPU:
                 else:
                     self.increment_pc(op_code)
 
-            elif op_code == 0b10100111:  # CMP
-                address_a = self.ram_read(self.pc + 1)
-                address_b = self.ram_read(self.pc + 2)
-                self.alu('CMP', address_a, address_b)
-                self.increment_pc(op_code)
-
             elif op_code == 0b01010110:  # JNE
                 register_address = self.ram_read(self.pc + 1)
                 if self.flag != 0b00000001:
                     self.pc = self.registers[register_address]
                 else:
                     self.increment_pc(op_code)
+
+            elif op_code == 0b10100111:  # CMP
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('CMP', address_a, address_b)
+                self.increment_pc(op_code)
 
             else:
                 print(bin(op_code))
