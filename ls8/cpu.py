@@ -154,6 +154,10 @@ class CPU:
                 self.pc = self.ram[self.registers[self.sp]]
                 self.registers[self.sp] += 1
 
+            elif operation == 0b01010100:  # JMP
+                register_address = self.ram_read(self.pc + 1)
+                self.pc = self.registers[register_address]
+                
             else:
                 print(bin(op_code))
                 sys.exit("I don't know an operation in this file")
