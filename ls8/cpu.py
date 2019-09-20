@@ -154,10 +154,30 @@ class CPU:
                 self.pc = self.ram[self.registers[self.sp]]
                 self.registers[self.sp] += 1
 
-            elif operation == 0b01010100:  # JMP
+            elif op_code == 0b01010100:  # JMP
                 register_address = self.ram_read(self.pc + 1)
                 self.pc = self.registers[register_address]
-                
+
+            elif op_code == 0b01010101:  # JEQ
+                register_address = self.ram_read(self.pc + 1)
+                if self.flag == 0b00000001:
+                    self.pc = self.registers[register_address]
+                else:
+                    self.increment_pc(op_code)
+
+            elif op_code == 0b10100111:  # CMP
+                address_a = self.ram_read(self.pc + 1)
+                address_b = self.ram_read(self.pc + 2)
+                self.alu('CMP', address_a, address_b)
+                self.increment_pc(op_code)
+
+            elif op_code == 0b01010110:  # JNE
+                register_address = self.ram_read(self.pc + 1)
+                if self.flag != 0b00000001:
+                    self.pc = self.registers[register_address]
+                else:
+                    self.increment_pc(op_code)
+
             else:
                 print(bin(op_code))
                 sys.exit("I don't know an operation in this file")
